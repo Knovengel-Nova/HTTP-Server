@@ -21,6 +21,8 @@ static void *connectionHandler(void *arg){
     }
 
     destroyClient(client);
+
+    return NULL;
 }
 
 int connectionStart(Client *client){

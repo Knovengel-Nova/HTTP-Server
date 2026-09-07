@@ -5,13 +5,13 @@
 #include <unistd.h>
 
 Client *createClient(){
-    Client *client = malloc(sizeof(client));
+    Client *client = malloc(sizeof(Client));
 
     if(client == NULL){
         return NULL;
     }
 
-    memset(client, 0, sizeof(client));
+    memset(client, 0, sizeof(Client));
 
     client->socket_fd = -1;
 
