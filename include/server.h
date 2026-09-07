@@ -1,6 +1,7 @@
 #ifndef SERVER_H
 #define SERVER_H
 
+#include "client.h"
 #include <netinet/in.h>
 
 #define DEFAULT_PORT 4892
@@ -15,12 +16,6 @@ typedef struct {
 
     struct sockaddr_in address;
 } Server;
-
-typedef struct{
-    int socket_fd;
-
-    struct sockaddr_in address;
-} Client;
 
 int initServer(Server *server, int port, int backlog);
 int startServer(Server *server);

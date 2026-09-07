@@ -1,4 +1,6 @@
 #include "server.h"
+#include "client.h"
+#include "connection.h"
 
 #include <stdio.h>
 #include <unistd.h>
@@ -32,17 +34,32 @@ int main(){
     }
 
     while(server.running){
-        Client client;
+        Client *client = createClient();
 
-        if(acceptClient(&server, &client) != 0){
+        if(client == NULL){
+            fprintf(stderr, "Failed to Create Client\n");
             continue;
         }
 
-        printf("Client Connected Successfully fd:%d@%d\n", client.socket_fd, client.address.sin_port);
+        if(acceptClient(&server, client) != 0){
+            perror("Accept\n");
+            destroyClient(client);
+            continue;
+        }
 
-        close(client.socket_fd);
+        printf("Client Connected Successfully fd: %d\n", client->socket_fd);
+
+        if(connectionStart(client)!=0){
+            fprintf(stderr, "Failed to start conncetionHandler\n");
+            destroyClient(client);
+            continue;
+        }
+
+
+
     }
 
+    printf("Shutting down Server @%d\n", DEFAULT_PORT);
     destroyServer(&server);
 
     return 0;
