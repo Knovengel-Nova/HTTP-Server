@@ -4,7 +4,7 @@
 #include <string.h>
 #include <unistd.h>
 
-Client *createClient(){
+Client *clientCreate(){
     Client *client = malloc(sizeof(Client));
 
     if(client == NULL){
@@ -18,7 +18,7 @@ Client *createClient(){
     return client;
 }
 
-void destroyClient(Client *client){
+void clientDestroy(Client *client){
     if(client == NULL){
         return;
     }

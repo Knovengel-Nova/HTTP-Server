@@ -17,9 +17,9 @@ typedef struct {
     struct sockaddr_in address;
 } Server;
 
-int initServer(Server *server, int port, int backlog);
-int startServer(Server *server);
-int acceptClient(Server *server, Client *client);
-int destroyServer(Server *server);
+int serverInit(Server *server, int port, int backlog);
+int serverStart(Server *server);
+int serverAcceptClient(Server *server, Client *client);
+int serverDestroy(Server *server);
 
 #endif

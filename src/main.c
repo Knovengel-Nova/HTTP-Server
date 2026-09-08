@@ -19,7 +19,7 @@ static void handleSignal(int signal){
 int main(){
     Server server;
 
-    if(initServer(&server, DEFAULT_PORT, DEFAULT_BACKLOG) != 0){
+    if(serverInit(&server, DEFAULT_PORT, DEFAULT_BACKLOG) != 0){
         fprintf(stderr, "Failed to initialize Server@%d\n", DEFAULT_PORT);
         return 1;
     }
@@ -28,22 +28,22 @@ int main(){
 
     signal(SIGINT, handleSignal);
 
-    if(startServer(&server) != 0){
+    if(serverStart(&server) != 0){
         fprintf(stderr, "Failed to Start Server@%d\n", DEFAULT_PORT);
         return 1;
     }
 
     while(server.running){
-        Client *client = createClient();
+        Client *client = clientCreate();
 
         if(client == NULL){
             fprintf(stderr, "Failed to Create Client\n");
             continue;
         }
 
-        if(acceptClient(&server, client) != 0){
+        if(serverAcceptClient(&server, client) != 0){
             perror("Accept\n");
-            destroyClient(client);
+            clientDestroy(client);
             continue;
         }
 
@@ -51,7 +51,7 @@ int main(){
 
         if(connectionStart(client)!=0){
             fprintf(stderr, "Failed to start conncetionHandler\n");
-            destroyClient(client);
+            clientDestroy(client);
             continue;
         }
 
@@ -60,7 +60,7 @@ int main(){
     }
 
     printf("Shutting down Server @%d\n", DEFAULT_PORT);
-    destroyServer(&server);
+    serverDestroy(&server);
 
     return 0;
 }

@@ -7,7 +7,7 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 
-int initServer(Server *server, int port, int backlog){
+int serverInit(Server *server, int port, int backlog){
     if(server == NULL){
         return -1;
     }
@@ -27,7 +27,7 @@ int initServer(Server *server, int port, int backlog){
     return 0;
 }
 
-int startServer(Server *server){
+int serverStart(Server *server){
     if(server == NULL){
         return -1;
     }
@@ -69,7 +69,7 @@ int startServer(Server *server){
     return 0;
 }
 
-int acceptClient(Server *server, Client *client){
+int serverAcceptClient(Server *server, Client *client){
     if(server == NULL || client == NULL){
         return -1;
     }
@@ -86,7 +86,7 @@ int acceptClient(Server *server, Client *client){
     return 0;
 }
 
-int destroyServer(Server *server){
+int serverDestroy(Server *server){
     if(server == NULL){
         return -1;
     }

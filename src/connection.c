@@ -20,7 +20,7 @@ static void *connectionHandler(void *arg){
 
     }
 
-    destroyClient(client);
+    clientDestroy(client);
 
     return NULL;
 }

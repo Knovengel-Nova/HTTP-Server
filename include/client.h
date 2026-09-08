@@ -8,7 +8,7 @@ typedef struct{
     struct sockaddr_in address;
 } Client;
 
-Client *createClient();
-void destroyClient(Client *client);
+Client *clientCreate();
+void clientDestroy(Client *client);
 
 #endif
