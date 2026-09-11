@@ -1,5 +1,7 @@
 #include "connection.h"
 #include "request.h"
+#include "response.h"
+#include "router.h"
 #include "strings.h"
 
 #include <pthread.h>
@@ -156,6 +158,23 @@ static void *connectionHandler(void *arg){
 
     if(request.body != NULL){
         printf("Body: %.*s\n", (int)request.bodyLength, request.body);
+    }
+
+    HttpResponse response;
+
+    httpResponseInit(&response);
+
+    if(routerHandle(&request, &response) != 0){
+        printf("Failed to handle request!\n");
+
+        httpRequestDestroy(&request);
+        clientDestroy(client);
+
+        return NULL;
+    }
+
+    if(httpResponseSend(client, &response) != 0){
+        perror("send");
     }
 
     httpRequestDestroy(&request);

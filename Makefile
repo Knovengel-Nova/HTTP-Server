@@ -8,9 +8,11 @@ TARGET = server
 SRC = src/main.c \
       src/server.c \
       src/client.c \
-      src/connection.c\
-	  src/request.c\
-	  src/strings.c
+      src/connection.c \
+	  src/request.c \
+	  src/strings.c \
+	  src/response.c \
+	  src/router.c 
 
 $(TARGET): $(SRC)
 	$(CC) $(CFLAGS) $(SRC) -o $(TARGET) $(LDFLAGS)
