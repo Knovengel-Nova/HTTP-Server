@@ -1,4 +1,5 @@
 #include "router.h"
+#include "errors.h"
 
 #include <string.h>
 
@@ -39,10 +40,12 @@ int routerHandle(HttpRequest *request, HttpResponse *response){
         }
     }
 
-    response->statusCode = 404;
-    response->statusText = "Not Found";
-    response->body = "404 Not Found";
-    response->bodyLength = strlen(response->body);
+    if(strcmp(request->method, "GET") != 0){
+        httpErrorResponse(response, 405);
+        return 0;
+    }
+
+    httpErrorResponse(response, 404);
 
     return 0;
 }

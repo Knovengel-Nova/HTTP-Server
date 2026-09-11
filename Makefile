@@ -12,7 +12,8 @@ SRC = src/main.c \
 	  src/request.c \
 	  src/strings.c \
 	  src/response.c \
-	  src/router.c 
+	  src/router.c \
+	  src/errors.c 
 
 $(TARGET): $(SRC)
 	$(CC) $(CFLAGS) $(SRC) -o $(TARGET) $(LDFLAGS)
