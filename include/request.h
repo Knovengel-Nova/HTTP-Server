@@ -1,5 +1,5 @@
-#ifndef HTTP_H
-#define HTTP_H
+#ifndef REQUEST_H
+#define REQUEST_H
 
 #include <stddef.h>
 
@@ -24,6 +24,8 @@ void httpRequestInit(HttpRequest *request);
 
 void httpRequestDestroy(HttpRequest *request);
 
-int httpParseRequest(const char* data, size_t length, HttpRequest *request);
+const char *httpRequestGetHeader(const HttpRequest *request, const char *name);
+
+int httpRequestParse(const char *data, size_t length, HttpRequest *request);
 
 #endif
